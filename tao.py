@@ -45,7 +45,6 @@ class Couponer():
         if info:
             title = info['title']
             url = info['tb_url']
-            print(url)
             id = self.get_id(url)
             req1 = TbkDgMaterialOptionalRequest()
             req1.set_app_info(appinfo(appkey, appsecret))
@@ -63,7 +62,6 @@ class Couponer():
                 coupon_start = coupon_info.find('减')
                 coupon_price = coupon_info[coupon_start:].strip('减').strip('元')
                 img_url = result['pict_url']
-
                 req2 = TbkTpwdCreateRequest()
                 req2.set_app_info(appinfo(appkey, appsecret))
                 req2.text = title
@@ -79,13 +77,12 @@ class Couponer():
 
 
 if __name__ == '__main__':
-
-    appkey = 'xxxx'
-    appsecret = 'xxxxx'
+    appkey = '25520322'
+    appsecret = '99fe36c2bf904fcabff8c275588cf662'
     mm = 'mm_46597913_21620290_85978550206'
-    adzoneid = 'xxx'
+    adzoneid = '85978550206'
     couponer = Couponer(appkey=appkey,appsecret=appsecret,mm=mm,adzoneid=adzoneid)
-    share_text = '【特惠【三只松鼠_碧根果210gx3袋】休闲零食坚果炒货长寿果】https://m.tb.cn/h.3FNI2oF?sm=50cd55 点击链接，再选择浏览器咑閞；或復·制这段描述￥ZEBVbtMcEb0￥后到淘♂寳♀'
+    share_text = '【鸿星尔克运动鞋女休闲鞋新款复古粉色老爹鞋防滑耐磨轻便跑鞋女鞋】https://m.tb.cn/h.3FTt7wD?sm=2b5b6a 点击链接，再选择浏览器咑閞；或復·制这段描述￥IbnQbtte3eU￥后到淘♂寳♀'
     taobao_message = couponer.get_tkl(share_text)
     print(taobao_message)
 
