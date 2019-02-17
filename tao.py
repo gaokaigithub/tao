@@ -77,10 +77,10 @@ class Couponer():
 
 
 if __name__ == '__main__':
-    appkey = '25520322'
-    appsecret = '99fe36c2bf904fcabff8c275588cf662'
-    mm = 'mm_46597913_21620290_85978550206'
-    adzoneid = '85978550206'
+    appkey = 'xxxx'
+    appsecret = 'xxxx'
+    mm = 'xxxx'
+    adzoneid = 'xxxx'
     couponer = Couponer(appkey=appkey,appsecret=appsecret,mm=mm,adzoneid=adzoneid)
     share_text = '【鸿星尔克运动鞋女休闲鞋新款复古粉色老爹鞋防滑耐磨轻便跑鞋女鞋】https://m.tb.cn/h.3FTt7wD?sm=2b5b6a 点击链接，再选择浏览器咑閞；或復·制这段描述￥IbnQbtte3eU￥后到淘♂寳♀'
     taobao_message = couponer.get_tkl(share_text)
