@@ -54,11 +54,11 @@ class JD():
             try:
                 r = requests.post(api,data)
                 j = r.json()
-                ok_url = j['data'] if j['data'] != '' else None
+                ok_url = j['data'] if j['data'] != '' else url
             except:
-                ok_url = None
+                ok_url = url
         else:
-            ok_url = None
+            ok_url = url
         return ok_url
 
 
