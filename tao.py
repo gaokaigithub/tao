@@ -8,13 +8,13 @@ from bs4 import BeautifulSoup
 import re
 
 
-class Couponer():
+class TB():
 
-    def __init__(self,appkey,appsecret,mm,adzoneid):
+    def __init__(self,appkey,appsecret,mm):
         self.appkey = appkey
         self.appsecret = appsecret
         self.mm = mm
-        self.adzoneid = adzoneid
+        self.adzoneid = mm.split('_')[-1]
 
     def get_info(self,share_text):
         title_re = re.compile(r'【.*】')
@@ -40,14 +40,14 @@ class Couponer():
         id = int(ok_url[start + 3:end].strip())
         return id
 
-    def get_tkl(self,share_text):
+    def get_coupon(self,share_text):
         info = self.get_info(share_text)
         if info:
             title = info['title']
             url = info['tb_url']
             id = self.get_id(url)
             req1 = TbkDgMaterialOptionalRequest()
-            req1.set_app_info(appinfo(appkey, appsecret))
+            req1.set_app_info(appinfo(self.appkey, self.appsecret))
             req1.adzone_id = self.adzoneid
             req1.q = title
             resp1 = req1.getResponse()
@@ -63,13 +63,13 @@ class Couponer():
                 coupon_price = coupon_info[coupon_start:].strip('减').strip('元')
                 img_url = result['pict_url']
                 req2 = TbkTpwdCreateRequest()
-                req2.set_app_info(appinfo(appkey, appsecret))
+                req2.set_app_info(appinfo(self.appkey, self.appsecret))
                 req2.text = title
                 req2.url = coupon_url
                 req2.logo = img_url
                 resp2 = req2.getResponse()
                 tkl = resp2['tbk_tpwd_create_response']['data']['model']
-                taobao_message = '%s\n【在售价】%s元\n【券后价】%s元\n复制这条信息，打开「手机绹宝」领券下单%s'%(title,price0,
+                taobao_message = '%s\n【在售价】%s元，【券后价】%s元\n复制这条信息，打开「手机绹宝」领券下单%s'%(title,price0,
                                                                                   str(int(price0)-int(coupon_price)),tkl)
             return taobao_message
 
@@ -79,11 +79,10 @@ class Couponer():
 if __name__ == '__main__':
     appkey = 'xxxx'
     appsecret = 'xxxx'
-    mm = 'xxxx'
-    adzoneid = 'xxxx'
-    couponer = Couponer(appkey=appkey,appsecret=appsecret,mm=mm,adzoneid=adzoneid)
+    mm = 'mm_xxx'
+    couponer = TB(appkey=appkey,appsecret=appsecret,mm=mm)
     share_text = '【鸿星尔克运动鞋女休闲鞋新款复古粉色老爹鞋防滑耐磨轻便跑鞋女鞋】https://m.tb.cn/h.3FTt7wD?sm=2b5b6a 点击链接，再选择浏览器咑閞；或復·制这段描述￥IbnQbtte3eU￥后到淘♂寳♀'
-    taobao_message = couponer.get_tkl(share_text)
+    taobao_message = couponer.get_coupon(share_text)
     print(taobao_message)
 
 
